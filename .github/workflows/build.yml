@@ -9,10 +9,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node: [12, 14, 16, 17]
-        base-os: ['bullseye', 'alpine']
-        default-node: '17'
-        default-os: 'bullseye'
+        node-version: [12, 14, 16, 17]
+        distro: ['bullseye', 'alpine']
+        default-node-version: '17'
+        default-distro: 'bullseye'
         pnpm-patch: '6.24.4'
         pnpm-minor: '6.24'
         pnpm-major: '6'
@@ -25,8 +25,8 @@ jobs:
         pnpm_patch: ${{ matrix.pnpm-patch }}
         pnpm_minor: ${{ matrix.pnpm-minor }}
         pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node }}
-        os: ${{ matrix.base-os }}
+        node: ${{ matrix.node-version }}
+        os: ${{ matrix.distro }}
     - name: Build images with default OS
       if: ${{ matrix.os == matrix.default-os }}
       run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch-$node -t gplane/pnpm:$pnpm_minor-$node -t gplane/pnpm:$pnpm_major-$node .'
@@ -34,8 +34,8 @@ jobs:
         pnpm_patch: ${{ matrix.pnpm-patch }}
         pnpm_minor: ${{ matrix.pnpm-minor }}
         pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node }}
-        os: ${{ matrix.default-os }}
+        node: ${{ matrix.node-version }}
+        os: ${{ matrix.default-distro }}
     - name: Build images with default Node.js
       if: ${{ matrix.node == matrix.default-node && matrix.os == matrix.default-os }}
       run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch -t gplane/pnpm:$pnpm_minor -t gplane/pnpm:$pnpm_major -t gplane/pnpm .'
@@ -43,8 +43,8 @@ jobs:
         pnpm_patch: ${{ matrix.pnpm-patch }}
         pnpm_minor: ${{ matrix.pnpm-minor }}
         pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.default-node }}
-        os: ${{ matrix.default-os }}
+        node: ${{ matrix.default-node-version }}
+        os: ${{ matrix.default-distro }}
     - name: Test images
       run: |
         docker run gplane/pnpm:$pnpm_patch-$node-$os -v
@@ -61,7 +61,7 @@ jobs:
         pnpm_patch: ${{ matrix.pnpm-patch }}
         pnpm_minor: ${{ matrix.pnpm-minor }}
         pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node }}
-        os: ${{ matrix.base-os }}
-        default-node: ${{ matrix.default-node }}
-        default-os: ${{ matrix.default-os }}
+        node: ${{ matrix.node-version }}
+        os: ${{ matrix.distro }}
+        default-node: ${{ matrix.default-node-version }}
+        default-os: ${{ matrix.default-distro }}
