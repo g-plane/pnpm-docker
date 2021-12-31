@@ -1,0 +1,67 @@
+name: build
+
+on: push
+
+jobs:
+  build:
+    name: Build Images
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node: [12, 14, 16, 17]
+        os: [bullseye, alpine]
+        default-node: 17
+        default-os: bullseye
+        pnpm-patch: 6.24.4
+        pnpm-minor: 6.24
+        pnpm-major: 6
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build images
+      run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch-$node-$os -t gplane/pnpm:$pnpm_minor-$node-$os -t gplane/pnpm:$pnpm_major-$node-$os .'
+      env:
+        pnpm_patch: ${{ matrix.pnpm-patch }}
+        pnpm_minor: ${{ matrix.pnpm-minor }}
+        pnpm_major: ${{ matrix.pnpm-major }}
+        node: ${{ matrix.node }}
+        os: ${{ matrix.os }}
+    - name: Build images with default OS
+      if: ${{ matrix.os == matrix.default-os }}
+      run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch-$node -t gplane/pnpm:$pnpm_minor-$node -t gplane/pnpm:$pnpm_major-$node .'
+      env:
+        pnpm_patch: ${{ matrix.pnpm-patch }}
+        pnpm_minor: ${{ matrix.pnpm-minor }}
+        pnpm_major: ${{ matrix.pnpm-major }}
+        node: ${{ matrix.node }}
+        os: ${{ matrix.default-os }}
+    - name: Build images with default Node.js
+      if: ${{ matrix.node == matrix.default-node && matrix.os == matrix.default-os }}
+      run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch -t gplane/pnpm:$pnpm_minor -t gplane/pnpm:$pnpm_major -t gplane/pnpm .'
+      env:
+        pnpm_patch: ${{ matrix.pnpm-patch }}
+        pnpm_minor: ${{ matrix.pnpm-minor }}
+        pnpm_major: ${{ matrix.pnpm-major }}
+        node: ${{ matrix.default-node }}
+        os: ${{ matrix.default-os }}
+    - name: Test images
+      run: |
+        docker run gplane/pnpm:$pnpm_patch-$node-$os -v
+        docker run gplane/pnpm:$pnpm_minor-$node-$os -v
+        docker run gplane/pnpm:$pnpm_major-$node-$os -v
+        docker run gplane/pnpm:$pnpm_patch-$node -v
+        docker run gplane/pnpm:$pnpm_minor-$node -v
+        docker run gplane/pnpm:$pnpm_major-$node -v
+        docker run gplane/pnpm:$pnpm_patch -v
+        docker run gplane/pnpm:$pnpm_minor -v
+        docker run gplane/pnpm:$pnpm_major -v
+        docker run gplane/pnpm -v
+      env:
+        pnpm_patch: ${{ matrix.pnpm-patch }}
+        pnpm_minor: ${{ matrix.pnpm-minor }}
+        pnpm_major: ${{ matrix.pnpm-major }}
+        node: ${{ matrix.default-node }}
+        os: ${{ matrix.default-os }}
+        default-node: ${{ matrix.default-node }}
+        default-os: ${{ matrix.default-os }}
