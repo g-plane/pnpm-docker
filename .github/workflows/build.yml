@@ -11,11 +11,11 @@ jobs:
       matrix:
         node: [12, 14, 16, 17]
         os: ['bullseye', 'alpine']
-        default-node: 17
-        default-os: bullseye
-        pnpm-patch: 6.24.4
-        pnpm-minor: 6.24
-        pnpm-major: 6
+        default-node: '17'
+        default-os: 'bullseye'
+        pnpm-patch: '6.24.4'
+        pnpm-minor: '6.24'
+        pnpm-major: '6'
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
