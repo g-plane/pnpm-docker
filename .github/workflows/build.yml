@@ -26,23 +26,33 @@ jobs:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
     - name: Build images with default OS
+      if: ${{ matrix.os == env.default_os }}
       run: 'docker build --build-arg base=$node-$default_os -t gplane/pnpm:$pnpm_patch-$node -t gplane/pnpm:$pnpm_minor-$node -t gplane/pnpm:$pnpm_major-$node .'
       env:
         node: ${{ matrix.node }}
     - name: Build images with default Node.js
+      if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
       run: 'docker build --build-arg base=$default_node-$default_os -t gplane/pnpm:$pnpm_patch -t gplane/pnpm:$pnpm_minor -t gplane/pnpm:$pnpm_major -t gplane/pnpm .'
     - name: Test images
       run: |
         docker run gplane/pnpm:$pnpm_patch-$node-$os -v
         docker run gplane/pnpm:$pnpm_minor-$node-$os -v
         docker run gplane/pnpm:$pnpm_major-$node-$os -v
+      env:
+        node: ${{ matrix.node }}
+        os: ${{ matrix.os }}
+    - name: Test images
+      if: ${{ matrix.os == env.default_os }}
+      run: |
         docker run gplane/pnpm:$pnpm_patch-$node -v
         docker run gplane/pnpm:$pnpm_minor-$node -v
         docker run gplane/pnpm:$pnpm_major-$node -v
+      env:
+        node: ${{ matrix.node }}
+    - name: Test images
+      if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
+      run: |
         docker run gplane/pnpm:$pnpm_patch -v
         docker run gplane/pnpm:$pnpm_minor -v
         docker run gplane/pnpm:$pnpm_major -v
         docker run gplane/pnpm -v
-      env:
-        node: ${{ matrix.node }}
-        os: ${{ matrix.os }}
