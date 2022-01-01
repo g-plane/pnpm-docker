@@ -9,42 +9,28 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [12, 14, 16, 17]
-        distro: ['bullseye', 'alpine']
-        default-node-version: '17'
-        default-distro: 'bullseye'
-        pnpm-patch: '6.24.4'
-        pnpm-minor: '6.24'
-        pnpm-major: '6'
+        node: [12, 14, 16, 17]
+        os: ['bullseye', 'alpine']
+    env:
+      default_node: 17
+      default_os: bullseye
+      pnpm_patch: 6.24.4
+      pnpm_minor: 6.24
+      pnpm_major: 6
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Build images
       run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch-$node-$os -t gplane/pnpm:$pnpm_minor-$node-$os -t gplane/pnpm:$pnpm_major-$node-$os .'
       env:
-        pnpm_patch: ${{ matrix.pnpm-patch }}
-        pnpm_minor: ${{ matrix.pnpm-minor }}
-        pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node-version }}
-        os: ${{ matrix.distro }}
+        node: ${{ matrix.node }}
+        os: ${{ matrix.os }}
     - name: Build images with default OS
-      if: ${{ matrix.os == matrix.default-os }}
-      run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch-$node -t gplane/pnpm:$pnpm_minor-$node -t gplane/pnpm:$pnpm_major-$node .'
+      run: 'docker build --build-arg base=$node-$default_os -t gplane/pnpm:$pnpm_patch-$node -t gplane/pnpm:$pnpm_minor-$node -t gplane/pnpm:$pnpm_major-$node .'
       env:
-        pnpm_patch: ${{ matrix.pnpm-patch }}
-        pnpm_minor: ${{ matrix.pnpm-minor }}
-        pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node-version }}
-        os: ${{ matrix.default-distro }}
+        node: ${{ matrix.node }}
     - name: Build images with default Node.js
-      if: ${{ matrix.node == matrix.default-node && matrix.os == matrix.default-os }}
-      run: 'docker build --build-arg base=$node-$os -t gplane/pnpm:$pnpm_patch -t gplane/pnpm:$pnpm_minor -t gplane/pnpm:$pnpm_major -t gplane/pnpm .'
-      env:
-        pnpm_patch: ${{ matrix.pnpm-patch }}
-        pnpm_minor: ${{ matrix.pnpm-minor }}
-        pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.default-node-version }}
-        os: ${{ matrix.default-distro }}
+      run: 'docker build --build-arg base=$default_node-$default_os -t gplane/pnpm:$pnpm_patch -t gplane/pnpm:$pnpm_minor -t gplane/pnpm:$pnpm_major -t gplane/pnpm .'
     - name: Test images
       run: |
         docker run gplane/pnpm:$pnpm_patch-$node-$os -v
@@ -58,10 +44,5 @@ jobs:
         docker run gplane/pnpm:$pnpm_major -v
         docker run gplane/pnpm -v
       env:
-        pnpm_patch: ${{ matrix.pnpm-patch }}
-        pnpm_minor: ${{ matrix.pnpm-minor }}
-        pnpm_major: ${{ matrix.pnpm-major }}
-        node: ${{ matrix.node-version }}
-        os: ${{ matrix.distro }}
-        default-node: ${{ matrix.default-node-version }}
-        default-os: ${{ matrix.default-distro }}
+        node: ${{ matrix.node }}
+        os: ${{ matrix.os }}
