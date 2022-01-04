@@ -38,7 +38,7 @@ jobs:
           -t gplane/pnpm:$pnpm_major-node$node .
       env:
         node: ${{ matrix.node }}
-    - name: Build images with default Node.js
+    - name: Build images with default Node.js and default OS
       if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
       run: |
         docker build --build-arg base=$default_node-$default_os \
@@ -54,7 +54,7 @@ jobs:
       env:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
-    - name: Test images
+    - name: Test images with default OS
       if: ${{ matrix.os == env.default_os }}
       run: |
         docker run gplane/pnpm:$pnpm_patch-node$node -v
@@ -62,7 +62,7 @@ jobs:
         docker run gplane/pnpm:$pnpm_major-node$node -v
       env:
         node: ${{ matrix.node }}
-    - name: Test images
+    - name: Test images with default Node.js and default OS
       if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
       run: |
         docker run gplane/pnpm:$pnpm_patch -v
@@ -81,7 +81,7 @@ jobs:
       env:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
-    - name: Publish images
+    - name: Publish images with default OS
       if: ${{ matrix.os == env.default_os }}
       run: |
         docker push gplane/pnpm:$pnpm_patch-node$node
@@ -89,7 +89,7 @@ jobs:
         docker push gplane/pnpm:$pnpm_major-node$node
       env:
         node: ${{ matrix.node }}
-    - name: Publish images
+    - name: Publish images with default Node.js and default OS
       if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
       run: |
         docker push gplane/pnpm:$pnpm_patch
