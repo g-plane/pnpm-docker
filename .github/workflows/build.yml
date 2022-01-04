@@ -22,7 +22,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Build images
       run: |
-        docker build --build-arg base=$node-$os \
+        docker build --build-arg base=$node-$os --build-arg pnpm=$pnpm_patch \
           -t gplane/pnpm:$pnpm_patch-node$node-$os \
           -t gplane/pnpm:$pnpm_minor-node$node-$os \
           -t gplane/pnpm:$pnpm_major-node$node-$os \
@@ -33,7 +33,7 @@ jobs:
     - name: Build images with default OS
       if: ${{ matrix.os == env.default_os }}
       run: |
-        docker build --build-arg base=$node-$default_os \
+        docker build --build-arg base=$node-$default_os --build-arg pnpm=$pnpm_patch \
           -t gplane/pnpm:$pnpm_patch-node$node \
           -t gplane/pnpm:$pnpm_minor-node$node \
           -t gplane/pnpm:$pnpm_major-node$node \
@@ -43,7 +43,7 @@ jobs:
     - name: Build images with default Node.js
       if: ${{ matrix.node == env.default_node }}
       run: |
-        docker build --build-arg base=$default_node-$os \
+        docker build --build-arg base=$default_node-$os --build-arg pnpm=$pnpm_patch \
           -t gplane/pnpm:$pnpm_patch-$os \
           -t gplane/pnpm:$pnpm_minor-$os \
           -t gplane/pnpm:$pnpm_major-$os \
@@ -53,7 +53,7 @@ jobs:
     - name: Build images with default Node.js and default OS
       if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
       run: |
-        docker build --build-arg base=$default_node-$default_os \
+        docker build --build-arg base=$default_node-$default_os --build-arg pnpm=$pnpm_patch \
           -t gplane/pnpm:$pnpm_patch \
           -t gplane/pnpm:$pnpm_minor \
           -t gplane/pnpm:$pnpm_major \
