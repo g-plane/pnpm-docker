@@ -1,4 +1,4 @@
-The Docker images of pnpm.
+The Docker images of [pnpm](https://pnpm.io).
 
 ## Supported tags
 
