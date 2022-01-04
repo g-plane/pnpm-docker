@@ -35,7 +35,8 @@ jobs:
         docker build --build-arg base=$node-$default_os \
           -t gplane/pnpm:$pnpm_patch-node$node \
           -t gplane/pnpm:$pnpm_minor-node$node \
-          -t gplane/pnpm:$pnpm_major-node$node .
+          -t gplane/pnpm:$pnpm_major-node$node \
+          -t gplane/pnpm:node$node .
       env:
         node: ${{ matrix.node }}
     - name: Build images with default Node.js and default OS
@@ -60,6 +61,7 @@ jobs:
         docker run gplane/pnpm:$pnpm_patch-node$node -v
         docker run gplane/pnpm:$pnpm_minor-node$node -v
         docker run gplane/pnpm:$pnpm_major-node$node -v
+        docker run gplane/pnpm:node$node -v
       env:
         node: ${{ matrix.node }}
     - name: Test images with default Node.js and default OS
@@ -87,6 +89,7 @@ jobs:
         docker push gplane/pnpm:$pnpm_patch-node$node
         docker push gplane/pnpm:$pnpm_minor-node$node
         docker push gplane/pnpm:$pnpm_major-node$node
+        docker push gplane/pnpm:node$node
       env:
         node: ${{ matrix.node }}
     - name: Publish images with default Node.js and default OS
