@@ -25,7 +25,8 @@ jobs:
         docker build --build-arg base=$node-$os \
           -t gplane/pnpm:$pnpm_patch-node$node-$os \
           -t gplane/pnpm:$pnpm_minor-node$node-$os \
-          -t gplane/pnpm:$pnpm_major-node$node-$os .
+          -t gplane/pnpm:$pnpm_major-node$node-$os \
+          -t gplane/pnpm:node$node-$os .
       env:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
@@ -62,6 +63,7 @@ jobs:
         docker run gplane/pnpm:$pnpm_patch-node$node-$os -v
         docker run gplane/pnpm:$pnpm_minor-node$node-$os -v
         docker run gplane/pnpm:$pnpm_major-node$node-$os -v
+        docker run gplane/pnpm:node$node-$os -v
       env:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
@@ -99,6 +101,7 @@ jobs:
         docker push gplane/pnpm:$pnpm_patch-node$node-$os
         docker push gplane/pnpm:$pnpm_minor-node$node-$os
         docker push gplane/pnpm:$pnpm_major-node$node-$os
+        docker push gplane/pnpm:node$node-$os
       env:
         node: ${{ matrix.node }}
         os: ${{ matrix.os }}
