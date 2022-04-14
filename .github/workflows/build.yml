@@ -14,7 +14,7 @@ jobs:
     env:
       default_node: 17
       default_os: bullseye
-      pnpm_patch: 6.32.6
+      pnpm_patch: 6.32.7
       pnpm_minor: 6.32
       pnpm_major: 6
     steps:
