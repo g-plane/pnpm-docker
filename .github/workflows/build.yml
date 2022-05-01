@@ -9,14 +9,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node: [12, 14, 16, 18]
+        node: [14, 16, 18]
         os: ['bullseye', 'alpine']
     env:
       default_node: 18
       default_os: bullseye
-      pnpm_patch: 6.32.11
-      pnpm_minor: 6.32
-      pnpm_major: 6
+      pnpm_patch: 7.0.0
+      pnpm_minor: 7.0
+      pnpm_major: 7
     steps:
     - name: Checkout code
       uses: actions/checkout@v2

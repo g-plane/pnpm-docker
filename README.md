@@ -2,14 +2,12 @@ The Docker images of [pnpm](https://pnpm.io).
 
 ## Supported tags
 
-- `6.32.11-node18-bullseye`, `6.32-node18-bullseye`, `6-node18-bullseye`, `node18-bullseye`, `6.32.11-node18`, `6.32-node18`, `6-node18`, `node18`, `6.32.11-bullseye`, `6.32-bullseye`, `6-bullseye`, `bullseye`, `6.32.11`, `6.32`, `6`
-- `6.32.11-node16-bullseye`, `6.32-node16-bullseye`, `6-node16-bullseye`, `node16-bullseye`, `6.32.11-node16`, `6.32-node16`, `6-node16`, `node16`
-- `6.32.11-node14-bullseye`, `6.32-node14-bullseye`, `6-node14-bullseye`, `node14-bullseye`, `6.32.11-node14`, `6.32-node14`, `6-node14`, `node14`
-- `6.32.11-node12-bullseye`, `6.32-node12-bullseye`, `6-node12-bullseye`, `node12-bullseye`, `6.32.11-node12`, `6.32-node12`, `6-node12`, `node12`
-- `6.32.11-node18-alpine`, `6.32-node18-alpine`, `6-node18-alpine`, `node18-alpine`, `6.32.11-alpine`, `6.32-alpine`, `6-alpine`, `alpine`
-- `6.32.11-node16-alpine`, `6.32-node16-alpine`, `6-node16-alpine`, `node16-alpine`
-- `6.32.11-node14-alpine`, `6.32-node14-alpine`, `6-node14-alpine`, `node14-alpine`
-- `6.32.11-node12-alpine`, `6.32-node12-alpine`, `6-node12-alpine`, `node12-alpine`
+- `7.0.0-node18-bullseye`, `7.0-node18-bullseye`, `7-node18-bullseye`, `node18-bullseye`, `7.0.0-node18`, `7.0-node18`, `7-node18`, `node18`, `7.0.0-bullseye`, `7.0-bullseye`, `7-bullseye`, `bullseye`, `7.0.0`, `7.0`, `7`
+- `7.0.0-node16-bullseye`, `7.0-node16-bullseye`, `7-node16-bullseye`, `node16-bullseye`, `7.0.0-node16`, `7.0-node16`, `7-node16`, `node16`
+- `7.0.0-node14-bullseye`, `7.0-node14-bullseye`, `7-node14-bullseye`, `node14-bullseye`, `7.0.0-node14`, `7.0-node14`, `7-node14`, `node14`
+- `7.0.0-node18-alpine`, `7.0-node18-alpine`, `7-node18-alpine`, `node18-alpine`, `7.0.0-alpine`, `7.0-alpine`, `7-alpine`, `alpine`
+- `7.0.0-node16-alpine`, `7.0-node16-alpine`, `7-node16-alpine`, `node16-alpine`
+- `7.0.0-node14-alpine`, `7.0-node14-alpine`, `7-node14-alpine`, `node14-alpine`
 
 ## License
 
