@@ -2,13 +2,13 @@ The Docker images of [pnpm](https://pnpm.io).
 
 ## Supported tags
 
-- `7.21.0-node19-bullseye`, `7.21-node19-bullseye`, `7-node19-bullseye`, `node19-bullseye`, `7.21.0-node19`, `7.21-node19`, `7-node19`, `node19`, `7.21.0-bullseye`, `7.21-bullseye`, `7-bullseye`, `bullseye`, `7.21.0`, `7.21`, `7`
-- `7.21.0-node18-bullseye`, `7.21-node18-bullseye`, `7-node18-bullseye`, `node18-bullseye`, `7.21.0-node18`, `7.21-node18`, `7-node18`, `node18`
-- `7.21.0-node16-bullseye`, `7.21-node16-bullseye`, `7-node16-bullseye`, `node16-bullseye`, `7.21.0-node16`, `7.21-node16`, `7-node16`, `node16`
-- `7.21.0-node14-bullseye`, `7.21-node14-bullseye`, `7-node14-bullseye`, `node14-bullseye`, `7.21.0-node14`, `7.21-node14`, `7-node14`, `node14`
-- `7.21.0-node18-alpine`, `7.21-node18-alpine`, `7-node18-alpine`, `node18-alpine`, `7.21.0-alpine`, `7.21-alpine`, `7-alpine`, `alpine`
-- `7.21.0-node16-alpine`, `7.21-node16-alpine`, `7-node16-alpine`, `node16-alpine`
-- `7.21.0-node14-alpine`, `7.21-node14-alpine`, `7-node14-alpine`, `node14-alpine`
+- `7.22.0-node19-bullseye`, `7.22-node19-bullseye`, `7-node19-bullseye`, `node19-bullseye`, `7.22.0-node19`, `7.22-node19`, `7-node19`, `node19`, `7.22.0-bullseye`, `7.22-bullseye`, `7-bullseye`, `bullseye`, `7.22.0`, `7.22`, `7`
+- `7.22.0-node18-bullseye`, `7.22-node18-bullseye`, `7-node18-bullseye`, `node18-bullseye`, `7.22.0-node18`, `7.22-node18`, `7-node18`, `node18`
+- `7.22.0-node16-bullseye`, `7.22-node16-bullseye`, `7-node16-bullseye`, `node16-bullseye`, `7.22.0-node16`, `7.22-node16`, `7-node16`, `node16`
+- `7.22.0-node14-bullseye`, `7.22-node14-bullseye`, `7-node14-bullseye`, `node14-bullseye`, `7.22.0-node14`, `7.22-node14`, `7-node14`, `node14`
+- `7.22.0-node18-alpine`, `7.22-node18-alpine`, `7-node18-alpine`, `node18-alpine`, `7.22.0-alpine`, `7.22-alpine`, `7-alpine`, `alpine`
+- `7.22.0-node16-alpine`, `7.22-node16-alpine`, `7-node16-alpine`, `node16-alpine`
+- `7.22.0-node14-alpine`, `7.22-node14-alpine`, `7-node14-alpine`, `node14-alpine`
 
 ## License
 
