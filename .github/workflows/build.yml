@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node: [14, 16, 18, 19]
+        node: [16, 18, 19]
         os: ['bullseye', 'alpine']
     env:
       default_node: 19
