@@ -14,8 +14,8 @@ jobs:
     env:
       default_node: 19
       default_os: bullseye
-      pnpm_patch: 8.0.0
-      pnpm_minor: 8.0
+      pnpm_patch: 8.1.0
+      pnpm_minor: 8.1
       pnpm_major: 8
     steps:
       - name: Checkout code
