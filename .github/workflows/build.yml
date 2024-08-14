@@ -10,13 +10,13 @@ jobs:
       fail-fast: true
       matrix:
         node: [18, 20, 21, 22]
-        os: ['bullseye', 'alpine']
+        os: ["bullseye", "alpine"]
     env:
       default_node: 22
       default_os: bullseye
-      pnpm_patch: '9.7.0'
-      pnpm_minor: '9.7'
-      pnpm_major: '9'
+      pnpm_patch: "9.7.1"
+      pnpm_minor: "9.7"
+      pnpm_major: "9"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
