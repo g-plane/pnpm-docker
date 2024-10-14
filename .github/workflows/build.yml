@@ -32,54 +32,54 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          build-args:
-            - base=${{ matrix.node }}-${{ matrix.os }}
-            - pnpm=${{ env.pnpm_patch }}
-          tags:
-            - gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}-${{ matrix.os }}
-            - gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}-${{ matrix.os }}
-            - gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}-${{ matrix.os }}
-            - gplane/pnpm:node${{ matrix.node }}-${{ matrix.os }}
+          build-args: |
+            base=${{ matrix.node }}-${{ matrix.os }}
+            pnpm=${{ env.pnpm_patch }}
+          tags: |
+            gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}-${{ matrix.os }}
+            gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}-${{ matrix.os }}
+            gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}-${{ matrix.os }}
+            gplane/pnpm:node${{ matrix.node }}-${{ matrix.os }}
           push: true
       - name: Build images with default OS
         if: ${{ matrix.os == env.default_os }}
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          build-args:
-            - base=${{ matrix.node }}-${{ env.default_os }}
-            - pnpm=${{ env.pnpm_patch }}
-          tags:
-            - gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}
-            - gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}
-            - gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}
-            - gplane/pnpm:node${{ matrix.node }}
+          build-args: |
+            base=${{ matrix.node }}-${{ env.default_os }}
+            pnpm=${{ env.pnpm_patch }}
+          tags: |
+            gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}
+            gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}
+            gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}
+            gplane/pnpm:node${{ matrix.node }}
           push: true
       - name: Build images with default Node.js
         if: ${{ matrix.node == env.default_node }}
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          build-args:
-            - base=${{ env.default_node }}-${{ matrix.os }}
-            - pnpm=${{ env.pnpm_patch }}
-          tags:
-            - gplane/pnpm:${{ env.pnpm_patch }}-${{ matrix.os }}
-            - gplane/pnpm:${{ env.pnpm_minor }}-${{ matrix.os }}
-            - gplane/pnpm:${{ env.pnpm_major }}-${{ matrix.os }}
-            - gplane/pnpm:${{ matrix.os }}
+          build-args: |
+            base=${{ env.default_node }}-${{ matrix.os }}
+            pnpm=${{ env.pnpm_patch }}
+          tags: |
+            gplane/pnpm:${{ env.pnpm_patch }}-${{ matrix.os }}
+            gplane/pnpm:${{ env.pnpm_minor }}-${{ matrix.os }}
+            gplane/pnpm:${{ env.pnpm_major }}-${{ matrix.os }}
+            gplane/pnpm:${{ matrix.os }}
           push: true
       - name: Build images with default Node.js and default OS
         if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          build-args:
-            - base=${{ env.default_node }}-${{ env.default_os }}
-            - pnpm=${{ env.pnpm_patch }}
-          tags:
-            - gplane/pnpm:${{ env.pnpm_patch }}
-            - gplane/pnpm:${{ env.pnpm_minor }}
-            - gplane/pnpm:${{ env.pnpm_major }}
-            - gplane/pnpm
+          build-args: |
+            base=${{ env.default_node }}-${{ env.default_os }}
+            pnpm=${{ env.pnpm_patch }}
+          tags: |
+            gplane/pnpm:${{ env.pnpm_patch }}
+            gplane/pnpm:${{ env.pnpm_minor }}
+            gplane/pnpm:${{ env.pnpm_major }}
+            gplane/pnpm
           push: true
