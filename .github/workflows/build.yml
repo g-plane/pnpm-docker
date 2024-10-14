@@ -106,35 +106,35 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Publish images
         run: |
-          docker push gplane/pnpm:$pnpm_patch-node$node-$os
-          docker push gplane/pnpm:$pnpm_minor-node$node-$os
-          docker push gplane/pnpm:$pnpm_major-node$node-$os
-          docker push gplane/pnpm:node$node-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node-$os
         env:
           node: ${{ matrix.node }}
           os: ${{ matrix.os }}
       - name: Publish images with default OS
         if: ${{ matrix.os == env.default_os }}
         run: |
-          docker push gplane/pnpm:$pnpm_patch-node$node
-          docker push gplane/pnpm:$pnpm_minor-node$node
-          docker push gplane/pnpm:$pnpm_major-node$node
-          docker push gplane/pnpm:node$node
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node
         env:
           node: ${{ matrix.node }}
       - name: Test images with default Node.js
         if: ${{ matrix.node == env.default_node }}
         run: |
-          docker push gplane/pnpm:$pnpm_patch-$os
-          docker push gplane/pnpm:$pnpm_minor-$os
-          docker push gplane/pnpm:$pnpm_major-$os
-          docker push gplane/pnpm:$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-$os
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$os
         env:
           os: ${{ matrix.os }}
       - name: Publish images with default Node.js and default OS
         if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
         run: |
-          docker push gplane/pnpm:$pnpm_patch
-          docker push gplane/pnpm:$pnpm_minor
-          docker push gplane/pnpm:$pnpm_major
-          docker push gplane/pnpm
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major
+          docker push --platform linux/amd64,linux/arm64 gplane/pnpm
