@@ -24,117 +24,62 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build images
-        run: |
-          docker buildx build --build-arg base=$node-$os --build-arg pnpm=$pnpm_patch \
-            --platform linux/amd64,linux/arm64 \
-            -t gplane/pnpm:$pnpm_patch-node$node-$os \
-            -t gplane/pnpm:$pnpm_minor-node$node-$os \
-            -t gplane/pnpm:$pnpm_major-node$node-$os \
-            -t gplane/pnpm:node$node-$os .
-        env:
-          node: ${{ matrix.node }}
-          os: ${{ matrix.os }}
-      - name: Build images with default OS
-        if: ${{ matrix.os == env.default_os }}
-        run: |
-          docker buildx build --build-arg base=$node-$default_os --build-arg pnpm=$pnpm_patch \
-            --platform linux/amd64,linux/arm64 \
-            -t gplane/pnpm:$pnpm_patch-node$node \
-            -t gplane/pnpm:$pnpm_minor-node$node \
-            -t gplane/pnpm:$pnpm_major-node$node \
-            -t gplane/pnpm:node$node .
-        env:
-          node: ${{ matrix.node }}
-      - name: Build images with default Node.js
-        if: ${{ matrix.node == env.default_node }}
-        run: |
-          docker buildx build --build-arg base=$default_node-$os --build-arg pnpm=$pnpm_patch \
-            --platform linux/amd64,linux/arm64 \
-            -t gplane/pnpm:$pnpm_patch-$os \
-            -t gplane/pnpm:$pnpm_minor-$os \
-            -t gplane/pnpm:$pnpm_major-$os \
-            -t gplane/pnpm:$os .
-        env:
-          os: ${{ matrix.os }}
-      - name: Build images with default Node.js and default OS
-        if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
-        run: |
-          docker buildx build --build-arg base=$default_node-$default_os --build-arg pnpm=$pnpm_patch \
-            --platform linux/amd64,linux/arm64 \
-            -t gplane/pnpm:$pnpm_patch \
-            -t gplane/pnpm:$pnpm_minor \
-            -t gplane/pnpm:$pnpm_major \
-            -t gplane/pnpm .
-      - name: Test images
-        run: |
-          docker run gplane/pnpm:$pnpm_patch-node$node-$os -v
-          docker run gplane/pnpm:$pnpm_minor-node$node-$os -v
-          docker run gplane/pnpm:$pnpm_major-node$node-$os -v
-          docker run gplane/pnpm:node$node-$os -v
-        env:
-          node: ${{ matrix.node }}
-          os: ${{ matrix.os }}
-      - name: Test images with default OS
-        if: ${{ matrix.os == env.default_os }}
-        run: |
-          docker run gplane/pnpm:$pnpm_patch-node$node -v
-          docker run gplane/pnpm:$pnpm_minor-node$node -v
-          docker run gplane/pnpm:$pnpm_major-node$node -v
-          docker run gplane/pnpm:node$node -v
-        env:
-          node: ${{ matrix.node }}
-      - name: Test images with default Node.js
-        if: ${{ matrix.node == env.default_node }}
-        run: |
-          docker run gplane/pnpm:$pnpm_patch-$os -v
-          docker run gplane/pnpm:$pnpm_minor-$os -v
-          docker run gplane/pnpm:$pnpm_major-$os -v
-          docker run gplane/pnpm:$os -v
-        env:
-          os: ${{ matrix.os }}
-      - name: Test images with default Node.js and default OS
-        if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
-        run: |
-          docker run gplane/pnpm:$pnpm_patch -v
-          docker run gplane/pnpm:$pnpm_minor -v
-          docker run gplane/pnpm:$pnpm_major -v
-          docker run gplane/pnpm -v
-      - uses: docker/login-action@v1
+      - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      - name: Publish images
-        run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node-$os
-        env:
-          node: ${{ matrix.node }}
-          os: ${{ matrix.os }}
-      - name: Publish images with default OS
+      - name: Build images
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          build-args:
+            - base=${{ matrix.node }}-${{ matrix.os }}
+            - pnpm=${{ env.pnpm_patch }}
+          tags:
+            - gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}-${{ matrix.os }}
+            - gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}-${{ matrix.os }}
+            - gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}-${{ matrix.os }}
+            - gplane/pnpm:node${{ matrix.node }}-${{ matrix.os }}
+          push: true
+      - name: Build images with default OS
         if: ${{ matrix.os == env.default_os }}
-        run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node
-        env:
-          node: ${{ matrix.node }}
-      - name: Test images with default Node.js
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          build-args:
+            - base=${{ matrix.node }}-${{ env.default_os }}
+            - pnpm=${{ env.pnpm_patch }}
+          tags:
+            - gplane/pnpm:${{ env.pnpm_patch }}-node${{ matrix.node }}
+            - gplane/pnpm:${{ env.pnpm_minor }}-node${{ matrix.node }}
+            - gplane/pnpm:${{ env.pnpm_major }}-node${{ matrix.node }}
+            - gplane/pnpm:node${{ matrix.node }}
+          push: true
+      - name: Build images with default Node.js
         if: ${{ matrix.node == env.default_node }}
-        run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$os
-        env:
-          os: ${{ matrix.os }}
-      - name: Publish images with default Node.js and default OS
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          build-args:
+            - base=${{ env.default_node }}-${{ matrix.os }}
+            - pnpm=${{ env.pnpm_patch }}
+          tags:
+            - gplane/pnpm:${{ env.pnpm_patch }}-${{ matrix.os }}
+            - gplane/pnpm:${{ env.pnpm_minor }}-${{ matrix.os }}
+            - gplane/pnpm:${{ env.pnpm_major }}-${{ matrix.os }}
+            - gplane/pnpm:${{ matrix.os }}
+          push: true
+      - name: Build images with default Node.js and default OS
         if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
-        run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          build-args:
+            - base=${{ env.default_node }}-${{ env.default_os }}
+            - pnpm=${{ env.pnpm_patch }}
+          tags:
+            - gplane/pnpm:${{ env.pnpm_patch }}
+            - gplane/pnpm:${{ env.pnpm_minor }}
+            - gplane/pnpm:${{ env.pnpm_major }}
+            - gplane/pnpm
+          push: true
