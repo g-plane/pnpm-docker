@@ -106,35 +106,47 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Publish images
         run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node-$os
+          docker buildx build --build-arg base=$node-$os --build-arg pnpm=$pnpm_patch \
+            --platform linux/amd64,linux/arm64 \
+            -t gplane/pnpm:$pnpm_patch-node$node-$os \
+            -t gplane/pnpm:$pnpm_minor-node$node-$os \
+            -t gplane/pnpm:$pnpm_major-node$node-$os \
+            -t gplane/pnpm:node$node-$os \
+            --push .
         env:
           node: ${{ matrix.node }}
           os: ${{ matrix.os }}
       - name: Publish images with default OS
         if: ${{ matrix.os == env.default_os }}
         run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-node$node
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:node$node
+          docker buildx build --build-arg base=$node-$default_os --build-arg pnpm=$pnpm_patch \
+            --platform linux/amd64,linux/arm64 \
+            -t gplane/pnpm:$pnpm_patch-node$node \
+            -t gplane/pnpm:$pnpm_minor-node$node \
+            -t gplane/pnpm:$pnpm_major-node$node \
+            -t gplane/pnpm:node$node \
+            --push .
         env:
           node: ${{ matrix.node }}
       - name: Test images with default Node.js
         if: ${{ matrix.node == env.default_node }}
         run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major-$os
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$os
+          docker buildx build --build-arg base=$default_node-$os --build-arg pnpm=$pnpm_patch \
+            --platform linux/amd64,linux/arm64 \
+            -t gplane/pnpm:$pnpm_patch-$os \
+            -t gplane/pnpm:$pnpm_minor-$os \
+            -t gplane/pnpm:$pnpm_major-$os \
+            -t gplane/pnpm:$os \
+            --push .
         env:
           os: ${{ matrix.os }}
       - name: Publish images with default Node.js and default OS
         if: ${{ matrix.node == env.default_node && matrix.os == env.default_os }}
         run: |
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_patch
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_minor
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm:$pnpm_major
-          docker push --platform linux/amd64,linux/arm64 gplane/pnpm
+          docker buildx build --build-arg base=$default_node-$default_os --build-arg pnpm=$pnpm_patch \
+            --platform linux/amd64,linux/arm64 \
+            -t gplane/pnpm:$pnpm_patch \
+            -t gplane/pnpm:$pnpm_minor \
+            -t gplane/pnpm:$pnpm_major \
+            -t gplane/pnpm \
+            --push .
