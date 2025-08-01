@@ -14,8 +14,8 @@ jobs:
     env:
       default_node: 22
       default_os: bullseye
-      pnpm_patch: "10.13.1"
-      pnpm_minor: "10.13"
+      pnpm_patch: "10.14.0"
+      pnpm_minor: "10.14"
       pnpm_major: "10"
     steps:
       - name: Checkout code
