@@ -10,10 +10,10 @@ jobs:
       fail-fast: true
       matrix:
         node: [20, 22, 24, 25]
-        os: ["bullseye", "alpine"]
+        os: ["bookworm", "alpine"]
     env:
       default_node: 25
-      default_os: bullseye
+      default_os: bookworm
       pnpm_patch: "10.19.0"
       pnpm_minor: "10.19"
       pnpm_major: "10"
