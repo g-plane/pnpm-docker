@@ -9,10 +9,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node: [18, 20, 21, 22]
+        node: [20, 22, 24, 25]
         os: ["bullseye", "alpine"]
     env:
-      default_node: 22
+      default_node: 25
       default_os: bullseye
       pnpm_patch: "10.19.0"
       pnpm_minor: "10.19"
