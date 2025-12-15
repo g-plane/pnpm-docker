@@ -14,8 +14,8 @@ jobs:
     env:
       default_node: 25
       default_os: bookworm
-      pnpm_patch: "10.25.0"
-      pnpm_minor: "10.25"
+      pnpm_patch: "10.26.0"
+      pnpm_minor: "10.26"
       pnpm_major: "10"
     steps:
       - name: Checkout code
