@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node: [20, 22, 24, 25]
+        node: [22, 24, 25]
         os: ["bookworm", "alpine"]
     env:
       default_node: 25
