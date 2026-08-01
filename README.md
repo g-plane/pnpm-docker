@@ -2,12 +2,12 @@ The Docker images of [pnpm](https://pnpm.io).
 
 ## Supported tags
 
-- `11.18.0-node25-bookworm`, `11.18-node25-bookworm`, `11-node25-bookworm`, `node25-bookworm`, `11.18.0-node25`, `11.18-node25`, `11-node25`, `node25`, `11.18.0-bookworm`, `11.18-bookworm`, `11-bookworm`, `bookworm`, `11.18.0`, `11.18`, `11`
-- `11.18.0-node24-bookworm`, `11.18-node24-bookworm`, `11-node24-bookworm`, `node24-bookworm`, `11.18.0-node24`, `11.18-node24`, `11-node24`, `node24`
-- `11.18.0-node22-bookworm`, `11.18-node22-bookworm`, `11-node22-bookworm`, `node22-bookworm`, `11.18.0-node22`, `11.18-node22`, `11-node22`, `node22`
-- `11.18.0-node25-alpine`, `11.18-node25-alpine`, `11-node25-alpine`, `node25-alpine`, `11.18.0-alpine`, `11.18-alpine`, `11-alpine`, `alpine`
-- `11.18.0-node24-alpine`, `11.18-node24-alpine`, `11-node24-alpine`, `node24-alpine`
-- `11.18.0-node22-alpine`, `11.18-node22-alpine`, `11-node22-alpine`, `node22-alpine`
+- `11.19.0-node25-bookworm`, `11.19-node25-bookworm`, `11-node25-bookworm`, `node25-bookworm`, `11.19.0-node25`, `11.19-node25`, `11-node25`, `node25`, `11.19.0-bookworm`, `11.19-bookworm`, `11-bookworm`, `bookworm`, `11.19.0`, `11.19`, `11`
+- `11.19.0-node24-bookworm`, `11.19-node24-bookworm`, `11-node24-bookworm`, `node24-bookworm`, `11.19.0-node24`, `11.19-node24`, `11-node24`, `node24`
+- `11.19.0-node22-bookworm`, `11.19-node22-bookworm`, `11-node22-bookworm`, `node22-bookworm`, `11.19.0-node22`, `11.19-node22`, `11-node22`, `node22`
+- `11.19.0-node25-alpine`, `11.19-node25-alpine`, `11-node25-alpine`, `node25-alpine`, `11.19.0-alpine`, `11.19-alpine`, `11-alpine`, `alpine`
+- `11.19.0-node24-alpine`, `11.19-node24-alpine`, `11-node24-alpine`, `node24-alpine`
+- `11.19.0-node22-alpine`, `11.19-node22-alpine`, `11-node22-alpine`, `node22-alpine`
 
 ## License
 
