@@ -1,3 +1,5 @@
+*This project is deprecated. Please consider [official images](https://pnpm.io/docker).*
+
 The Docker images of [pnpm](https://pnpm.io).
 
 ## Supported tags
